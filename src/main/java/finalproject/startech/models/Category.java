@@ -21,4 +21,6 @@ public class Category {
     @JoinColumn(name = "blogs",nullable = true)
     private List<Blog> blogs;
 
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    private List<Service> services;
 }
