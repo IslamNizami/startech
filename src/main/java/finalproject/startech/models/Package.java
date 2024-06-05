@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "packages")
-public class Packages {
+public class Package {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,6 @@ public class Packages {
     private int Duration; // in month
 
     @ElementCollection
-    private List<String> features;
+    private List<String> authors;
 
 }
