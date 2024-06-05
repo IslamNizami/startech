@@ -15,4 +15,8 @@ public class Service {
     private String name;
     private String description;
     private String icon;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
