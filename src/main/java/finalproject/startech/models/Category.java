@@ -22,5 +22,5 @@ public class Category {
     private List<Blog> blogs;
 
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
-    private List<Service> services;
+    private List<Feature> features;
 }
