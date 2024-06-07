@@ -45,7 +45,7 @@ public class ServiceServiceImpl implements ServiceService {
             feature.setName(serviceCreateDto.getName());
             feature.setDescription(serviceCreateDto.getDescription());
             feature.setIcon(serviceCreateDto.getIcon());
-            Category category = categoryRepository.findById(serviceCreateDto.getId()).get();
+            Category category = categoryRepository.findById(serviceCreateDto.getCategoryId()).get();
             feature.setCategory(category);
             serviceRepository.save(feature);
         }catch (Exception e)
@@ -56,17 +56,27 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public void removeService(Long serviceId) {
-
+        Feature feature = serviceRepository.findById(serviceId).orElseThrow();
+        feature.setIsDeleted(true);
+        serviceRepository.save(feature);
     }
 
     @Override
     public void updateService(ServiceUpdateDto serviceUpdateDto) {
-
+        Feature findService = serviceRepository.findById(serviceUpdateDto.getId()).orElseThrow();
+        Category findCategory = categoryRepository.findById(serviceUpdateDto.getCategoryId()).orElseThrow();
+        findService.setName(serviceUpdateDto.getName());
+        findService.setDescription(serviceUpdateDto.getDescription());
+        findService.setIcon(serviceUpdateDto.getIcon());
+        findService.setCategory(findCategory);
+        serviceRepository.save(findService);
     }
 
     @Override
     public ServiceUpdateDto findUpdateService(Long id) {
-        return null;
+        Feature service = serviceRepository.findById(id).orElseThrow();
+        ServiceUpdateDto serviceUpdateDto = modelMapper.map(service,ServiceUpdateDto.class);
+        return serviceUpdateDto;
     }
 
     @Override

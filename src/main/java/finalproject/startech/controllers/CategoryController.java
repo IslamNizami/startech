@@ -27,7 +27,7 @@ public class CategoryController {
         return "/dashboard/category";
     }
 
-    @GetMapping("/admin/category/category-create")
+    @GetMapping("/admin/category/create")
     public String createCategory()
     {
         return "/dashboard/category-create";

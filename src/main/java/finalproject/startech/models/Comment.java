@@ -35,5 +35,8 @@ public class Comment {
     private List<Comment> replies;
 
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
 }

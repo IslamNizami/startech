@@ -4,23 +4,23 @@
       layout:decorate = "~{dashboard/layout}">
 
 <head>
-    <title>Category</title>
+    <title>Tag</title>
 </head>
 
 <body>
 <div layout:fragment="container" class="container-fluid">
-    <a href = "/admin/category/create" class = "btn btn-primary btn-sm">Create</a>
+    <a href = "/admin/tag/create" class = "btn btn-primary btn-sm">Create</a>
     <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Category-Name</th>
+            <th scope="col">Tag-Name</th>
         </tr>
         </thead>
-        <tbody th:each = "category: ${categories}">
+        <tbody th:each = "tag: ${tags}">
         <tr>
-            <th th:text="${category.getId()}"></th>
-            <td th:text="${category.getName()}"></td>
+            <th th:text="${tag.getId()}"></th>
+            <td th:text="${tag.getName()}"></td>
         </tr>
         </tbody>
     </table>
