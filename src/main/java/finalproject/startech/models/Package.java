@@ -22,6 +22,7 @@ public class Package {
     private float price;
     private int Duration; // in month
 
+
     @ElementCollection
     private List<String> authors;
 
