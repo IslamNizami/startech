@@ -48,15 +48,15 @@ public class ServiceController {
     }
 
     @PostMapping("/admin/service/create")
-    public String createService(@ModelAttribute ServiceCreateDto serviceCreateDto, @RequestParam("icon") MultipartFile icon) throws IOException
+    public String createService(@ModelAttribute ServiceCreateDto serviceCreateDto, @RequestParam("image") MultipartFile image) throws IOException
     {
         UUID rand = UUID.randomUUID();
         StringBuilder fileNames = new StringBuilder();
-        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY,rand+icon.getOriginalFilename());
-        fileNames.append(icon.getOriginalFilename());
-        Files.write(fileNameAndPath,icon.getBytes());
+        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY,rand+image.getOriginalFilename());
+        fileNames.append(image.getOriginalFilename());
+        Files.write(fileNameAndPath,image.getBytes());
 
-        serviceCreateDto.setIcon(rand+icon.getOriginalFilename());
+        serviceCreateDto.setIcon(rand+image.getOriginalFilename());
         serviceService.addService(serviceCreateDto);
         return "redirect:/admin/service";
     }
