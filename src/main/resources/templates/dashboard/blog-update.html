@@ -1,0 +1,41 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/dashboard/layout}">
+<head>
+    <title>Blog Update</title>
+</head>
+
+<body>
+<div layout:fragment="container" class="container-fluid">
+    <div>
+        <form action="/admin/blog/update" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input th:value="${blog.title}" class="form-control" type="text" placeholder="Title" name="title" />
+            </div>
+            <input th:value="${blog.id}" class="form-control" type="hidden" placeholder="id" name="id" />
+            <div class="form-group">
+                <input th:value="${blog.subTitle}" class="form-control" type="text" placeholder="subtitle" name="subTitle" />
+            </div>
+            <div class="form-group">
+                <textarea th:text="${blog.description}" id="desc" class="form-control" type="text" placeholder="description" name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <input th:value="${blog.photoUrl}" class="form-control" type="text" placeholder="photoUrl" name="image" />
+            </div>
+            <div class="form-group">
+                <select name="categoryId" class="form-control">
+                    <option th:selected="${blog.categoryId}==${category.id}" th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select id="tags" name="tags" class="form-control" multiple>
+                    <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}" th:selected="${blog.tags.contains(tag)}"></option>
+                </select>
+            </div>
+            <input type="submit" value="Update" class="btn btn-warning" />
+        </form>
+    </div>
+</div>
+</body>
+</html>
