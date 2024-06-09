@@ -20,10 +20,8 @@ public class Package {
     private String title;
     private String subTitle;
     private float price;
-    private int Duration; // in month
-
-
     @ElementCollection
-    private List<String> authors;
+    private List<String> features;
+    private Boolean isDeleted = false;
 
 }

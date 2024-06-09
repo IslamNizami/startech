@@ -80,8 +80,15 @@ public class ServiceController {
     }
 
     @PostMapping("/admin/service/update")
-    public String updateService(@ModelAttribute ServiceUpdateDto serviceUpdateDto)
+    public String updateService(@ModelAttribute ServiceUpdateDto serviceUpdateDto,@RequestParam("image") MultipartFile image) throws IOException
     {
+        UUID rand = UUID.randomUUID();
+        StringBuilder fileNames = new StringBuilder();
+        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY,rand+image.getOriginalFilename());
+        fileNames.append(image.getOriginalFilename());
+        Files.write(fileNameAndPath,image.getBytes());
+
+        serviceUpdateDto.setIcon(rand+image.getOriginalFilename());
         serviceService.updateService(serviceUpdateDto);
         return "redirect:/admin/service";
     }
