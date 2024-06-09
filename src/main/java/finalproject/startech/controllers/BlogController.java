@@ -2,6 +2,7 @@ package finalproject.startech.controllers;
 
 
 import finalproject.startech.dtos.blogdtos.BlogCreateDto;
+import finalproject.startech.dtos.blogdtos.BlogDetailDto;
 import finalproject.startech.dtos.blogdtos.BlogDto;
 import finalproject.startech.dtos.blogdtos.BlogUpdateDto;
 import finalproject.startech.dtos.categorydtos.CategoryDto;
@@ -39,7 +40,9 @@ public class BlogController {
     @GetMapping("/admin/blog")
     public String blog(Model model) {
         List<BlogDto> blogs = blogService.getBlogs();
+        List<TagDto> tags = tagService.getAllTags();
         model.addAttribute("blogs", blogs);
+        model.addAttribute("tags", tags);
         return "/dashboard/blog";
     }
 
@@ -79,16 +82,28 @@ public class BlogController {
         List<TagDto> tags = tagService.getAllTags();
         model.addAttribute("categories", categories);
         model.addAttribute("tags", tags);
-        model.addAttribute("blogUpdateDto", blogUpdateDto);
+        model.addAttribute("blog", blogUpdateDto);
         return "/dashboard/blog-update";
     }
 
     @PostMapping("/admin/blog/update")
-    public String updateBlog(@ModelAttribute BlogUpdateDto blogUpdateDto)
+    public String updateBlog(@ModelAttribute BlogUpdateDto blogUpdateDto,@RequestParam("image") MultipartFile image) throws IOException
     {
+        UUID rand = UUID.randomUUID();
+        StringBuilder fileNames = new StringBuilder();
+        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, rand + image.getOriginalFilename());
+        fileNames.append(image.getOriginalFilename());
+        Files.write(fileNameAndPath, image.getBytes());
+        blogUpdateDto.setPhotoUrl(rand + image.getOriginalFilename());
         blogService.updateBlog(blogUpdateDto);
         return "redirect:/admin/blog";
     }
 
-
+    @GetMapping("detail/{id}/{seoUrl}")
+    public  String detail(@PathVariable Long id, Model model)
+    {
+        BlogDetailDto blogDetailDto = blogService.blogDetail(id);
+        model.addAttribute("blog",blogDetailDto);
+        return "blog-detail";
+    }
 }

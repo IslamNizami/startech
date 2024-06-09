@@ -1,5 +1,6 @@
 package finalproject.startech.services.Impls;
 
+import finalproject.startech.Helpers.SeoHelper;
 import finalproject.startech.dtos.blogdtos.*;
 import finalproject.startech.dtos.servicedtos.ServiceDto;
 import finalproject.startech.dtos.tagdtos.TagDto;
@@ -63,7 +64,8 @@ public class BlogServiceImpl implements BlogService {
             blog.setPhotoUrl(blogCreateDto.getPhotoUrl());
             Category category = categoryRepository.findById(blogCreateDto.getCategoryId()).get();
             blog.setCategory(category);
-
+            SeoHelper seoHelper = new SeoHelper();
+            blog.setSeoUrl(seoHelper.seoUrlHelper(blogCreateDto.getTitle()));
             Set<Long> tagIds = blogCreateDto.getTagIds();
             List<Tag> tags = tagRepository.findAllById(tagIds);
             blog.setTag(new HashSet<>(tags));
@@ -88,9 +90,13 @@ public class BlogServiceImpl implements BlogService {
         findBlog.setTitle(blogUpdateDto.getTitle());
         findBlog.setDescription(blogUpdateDto.getDescription());
         findBlog.setAuthor(blogUpdateDto.getAuthor());
+        findBlog.setUpdatedDate(new Date());
         findBlog.setSubTitle(blogUpdateDto.getSubTitle());
         findBlog.setPhotoUrl(blogUpdateDto.getPhotoUrl());
         findBlog.setCategory(category);
+        SeoHelper seoHelper = new SeoHelper();
+        findBlog.setSeoUrl(seoHelper.seoUrlHelper(blogUpdateDto.getTitle()));
+        blogRepository.saveAndFlush(findBlog);
     }
 
     @Override
