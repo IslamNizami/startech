@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate = "~{dashboard/layout}">
+
+<head>
+    <title>Tag</title>
+</head>
+
+<body>
+<div layout:fragment="container" class="container-fluid">
+    <a href = "/admin/offer/create" class = "btn btn-primary btn-sm">Create</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Offer-Name</th>
+        </tr>
+        </thead>
+        <tbody th:each = "offer: ${offers}">
+        <tr>
+            <th th:text="${offer.getId()}"></th>
+            <td th:text="${offer.getTitle()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

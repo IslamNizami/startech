@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,8 +22,13 @@ public class Package {
     private String title;
     private String subTitle;
     private float price;
-    @ElementCollection
-    private List<String> features;
     private Boolean isDeleted = false;
 
+    @ManyToMany
+    @JoinTable(
+            name = "Package_Offer",
+            joinColumns = @JoinColumn(name = "package_id"),
+            inverseJoinColumns = @JoinColumn(name = "offer_id")
+    )
+    private List<Offer> offers;
 }

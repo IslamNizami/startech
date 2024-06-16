@@ -12,5 +12,5 @@ public class PackageUpdateDto {
     private String title;
     private String subTitle;
     private float price;
-    private List<String> features;
+    private List<Long> offerIds;
 }
