@@ -13,4 +13,5 @@ public interface BlogService{
     void updateBlog(BlogUpdateDto blogUpdateDto);
     BlogUpdateDto findUpdateBlog(Long id);
     BlogDetailDto blogDetail(Long id);
+
 }

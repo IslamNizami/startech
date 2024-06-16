@@ -4,14 +4,19 @@ import finalproject.startech.dtos.packagedtos.PackageCreateDto;
 import finalproject.startech.dtos.packagedtos.PackageDto;
 import finalproject.startech.dtos.packagedtos.PackageHomeDto;
 import finalproject.startech.dtos.packagedtos.PackageUpdateDto;
+import finalproject.startech.models.Offer;
 import finalproject.startech.models.Package;
+import finalproject.startech.models.Tag;
+import finalproject.startech.repositories.OfferRepository;
 import finalproject.startech.repositories.PackageRepository;
 import finalproject.startech.services.PackageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,6 +25,8 @@ public class PackageServiceImpl implements PackageService {
     private PackageRepository packageRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private OfferRepository offerRepository;
 
     @Override
     public List<PackageDto> getAllPackages() {
@@ -37,7 +44,9 @@ public class PackageServiceImpl implements PackageService {
             paket.setTitle(packageCreateDto.getTitle());
             paket.setSubTitle(packageCreateDto.getSubTitle());
             paket.setPrice(packageCreateDto.getPrice());
-            paket.setFeatures(packageCreateDto.getFeatures());
+            List<Long> offerIds = packageCreateDto.getOfferIds();
+            List<Offer> offers = offerRepository.findAllById(offerIds);
+            paket.setOffers(offers);
             packageRepository.save(paket);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
@@ -66,7 +75,9 @@ public class PackageServiceImpl implements PackageService {
         findPaket.setTitle(packageUpdateDto.getTitle());
         findPaket.setSubTitle(packageUpdateDto.getSubTitle());
         findPaket.setPrice(packageUpdateDto.getPrice());
-        findPaket.setFeatures(packageUpdateDto.getFeatures());
+        List<Long> offerIds = packageUpdateDto.getOfferIds();
+        List<Offer> offers = offerRepository.findAllById(offerIds);
+        findPaket.setOffers(offers);
         packageRepository.saveAndFlush(findPaket);
     }
 
