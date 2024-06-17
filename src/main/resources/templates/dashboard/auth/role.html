@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate = "~{dashboard/layout}">
+
+<head>
+    <title>Role</title>
+</head>
+
+<body>
+<div layout:fragment="container" class="container-fluid">
+    <a href = "/admin/role/create" class = "btn btn-primary btn-sm">Create</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Role-Name</th>
+        </tr>
+        </thead>
+        <tbody th:each = "role: ${roles}">
+        <tr>
+            <th th:text="${role.getId()}"></th>
+            <td th:text="${role.getName()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

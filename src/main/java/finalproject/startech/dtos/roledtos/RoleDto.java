@@ -1,2 +1,12 @@
-package finalproject.startech.dtos.roledtos;public class RoleDto {
+package finalproject.startech.dtos.roledtos;
+
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class RoleDto {
+    private Long id;
+    private String name;
 }

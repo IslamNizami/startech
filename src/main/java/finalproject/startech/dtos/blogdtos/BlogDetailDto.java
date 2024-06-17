@@ -3,7 +3,6 @@ package finalproject.startech.dtos.blogdtos;
 
 import finalproject.startech.dtos.categorydtos.CategoryDto;
 import finalproject.startech.dtos.tagdtos.TagDto;
-import finalproject.startech.models.Comment;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +21,4 @@ public class BlogDetailDto {
     private String updatedDate;
     private CategoryDto category;
     private Set<TagDto> tags;
-    private List<Comment> comments;
 }

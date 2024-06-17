@@ -4,7 +4,7 @@
       layout:decorate = "~{dashboard/layout}">
 
 <head>
-    <title>Article</title>
+    <title>User List</title>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <a href = "/admin/article/create" class = "btn btn-primary btn-sm">Create Article</a>
+                <a href = "/admin/article/create" class = "btn btn-primary btn-sm">User List</a>
             </h6>
         </div>
         <div class="card-body">
@@ -61,7 +61,7 @@
                         <td th:text = "${user.emailConfirmed}"></td>
                         <td>
                             <a th:href="'/admin/users/role/'+${user.id}" class="btn btn-outline-warning btn-sm">Update</a>
-                            <button  class="btn btn-outline-danger btn-sm">Delete</button>
+                            <button th:onclick="|remove(${user.id})|"  class="btn btn-outline-danger btn-sm">Delete</button>
                         </td>
                     </tr>
                     </tbody>
@@ -70,6 +70,46 @@
         </div>
     </div>
 </div>
+<th:block layout:fragment="myScript">
+    <script>
+        function remove(id){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    window.location="/admin/users/remove/"+id;
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "Your imaginary file is safe :)",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    </script>
 
+</th:block>
 </body>
 </html>

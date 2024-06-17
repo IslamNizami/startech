@@ -34,9 +34,6 @@ public class Blog {
     @JoinTable(name = "blog_tags", joinColumns = @JoinColumn(name = "blogs", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tags",referencedColumnName = "id"))
     private Set<Tag> tag = new HashSet<>();
 
-    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Comment> comments = new ArrayList<Comment>();
-
 
 
 
