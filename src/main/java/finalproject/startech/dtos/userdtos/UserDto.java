@@ -1,2 +1,13 @@
-package finalproject.startech.dtos.userdtos;public class UserDto {
+package finalproject.startech.dtos.userdtos;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class UserDto {
+    private Long id;
+    private String email;
+    private String firstName;
+    private String lastName;
 }
