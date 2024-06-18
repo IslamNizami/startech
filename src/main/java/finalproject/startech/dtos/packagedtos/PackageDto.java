@@ -1,6 +1,7 @@
 package finalproject.startech.dtos.packagedtos;
 
 
+import finalproject.startech.dtos.offerdtos.OfferDto;
 import jakarta.persistence.ElementCollection;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,5 +15,5 @@ public class PackageDto {
     private String title;
     private String subTitle;
     private float price;
-    private List<String> features;
+    private List<OfferDto> offers;
 }

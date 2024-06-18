@@ -1,6 +1,7 @@
 package finalproject.startech.services;
 
 import finalproject.startech.dtos.blogdtos.*;
+import finalproject.startech.models.Blog;
 
 import java.util.List;
 
@@ -13,5 +14,6 @@ public interface BlogService{
     void updateBlog(BlogUpdateDto blogUpdateDto);
     BlogUpdateDto findUpdateBlog(Long id);
     BlogDetailDto blogDetail(Long id);
+    List<BlogHomeDto> findByTitle(String name);
 
 }

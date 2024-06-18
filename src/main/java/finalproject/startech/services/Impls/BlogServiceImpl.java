@@ -69,7 +69,7 @@ public class BlogServiceImpl implements BlogService {
             Set<Long> tagIds = blogCreateDto.getTagIds();
             List<Tag> tags = tagRepository.findAllById(tagIds);
             blog.setTag(new HashSet<>(tags));
-            blogRepository.save(blog);
+            blogRepository.saveAndFlush(blog);
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }
@@ -111,5 +111,12 @@ public class BlogServiceImpl implements BlogService {
         Blog blog = blogRepository.findById(id).orElseThrow();
         BlogDetailDto blogDetailDto = modelMapper.map(blog,BlogDetailDto.class);
         return blogDetailDto;
+    }
+
+    @Override
+    public List<BlogHomeDto> findByTitle(String name) {
+        List<Blog> blogs = blogRepository.findByTitle(name);
+        List<BlogHomeDto> result = blogs.stream().map(blog->modelMapper.map(blog,BlogHomeDto.class)).collect(Collectors.toList());
+        return result;
     }
 }

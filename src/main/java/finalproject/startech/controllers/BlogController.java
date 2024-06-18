@@ -1,10 +1,7 @@
 package finalproject.startech.controllers;
 
 
-import finalproject.startech.dtos.blogdtos.BlogCreateDto;
-import finalproject.startech.dtos.blogdtos.BlogDetailDto;
-import finalproject.startech.dtos.blogdtos.BlogDto;
-import finalproject.startech.dtos.blogdtos.BlogUpdateDto;
+import finalproject.startech.dtos.blogdtos.*;
 import finalproject.startech.dtos.categorydtos.CategoryDto;
 import finalproject.startech.dtos.tagdtos.TagDto;
 import finalproject.startech.services.BlogService;
@@ -105,5 +102,17 @@ public class BlogController {
         BlogDetailDto blogDetailDto = blogService.blogDetail(id);
         model.addAttribute("blog",blogDetailDto);
         return "blog-detail";
+    }
+
+    @GetMapping("/search/{name}")
+    public String search(@PathVariable String name, Model model)
+    {
+        List<BlogHomeDto> blogs = blogService.findByTitle(name);
+        if (blogs.isEmpty())
+        {
+            return "notFound";
+        }
+        model.addAttribute("blogs", blogs);
+        return "blog-search";
     }
 }

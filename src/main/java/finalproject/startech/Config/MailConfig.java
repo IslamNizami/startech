@@ -15,11 +15,11 @@ public class MailConfig {
     public JavaMailSender javaMailSender()
     {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-        javaMailSender.setHost("smtp.ethereal.email");
+        javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
 
-        javaMailSender.setUsername("vicenta50@ethereal.email");
-        javaMailSender.setPassword("VRxCwFW9hJwuaCjpKh");
+        javaMailSender.setUsername("islamronaldo046@gmail.com");
+        javaMailSender.setPassword("qxur qfnn dyfq prva");
 
         Properties props = javaMailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

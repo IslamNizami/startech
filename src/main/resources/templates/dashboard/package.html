@@ -48,7 +48,8 @@
                         <td th:text = "${package.title}"></td>
                         <td th:text = "${package.subTitle}"></td>
                         <td th:text = "${package.price}"></td>
-                        <td th:text="${package.offers.title}">
+                        <td>
+                            <span th:each = "offer : ${package.offers}" th:text="${offer.title}"></span>
                         </td>
                         <td>
                             <a th:href="'/admin/package/update/'+${package.id}" class="btn btn-outline-warning btn-sm">Update</a>
@@ -87,7 +88,7 @@
                         text: "Your file has been deleted.",
                         icon: "success"
                     });
-                    window.location="/admin/article/remove/"+id;
+                    window.location="/admin/package/remove/"+id;
                 } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel

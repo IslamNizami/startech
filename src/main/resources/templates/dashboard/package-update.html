@@ -9,13 +9,16 @@
 <body>
 <div layout:fragment="container" class="container-fluid">
     <div>
-        <form th:action="@{/admin/blog/update}" method="post">
+        <form th:action="@{/admin/package/update}" method="post">
             <div class="form-group">
-                <input th:value="${offer.title}" class="form-control" type="text" placeholder="Title" name="title" />
+                <input th:value="${paket.title}" class="form-control" type="text" placeholder="Title" name="title" />
             </div>
-            <input th:value="${blog.id}" class="form-control" type="hidden" placeholder="id" name="id" />
+            <input th:value="${paket.id}" class="form-control" type="hidden" placeholder="id" name="id" />
             <div class="form-group">
-                <input th:value="${offer.subTitle}" class="form-control" type="text" placeholder="subtitle" name="subTitle" />
+                <input th:value="${paket.subTitle}" class="form-control" type="text" placeholder="subtitle" name="subTitle" />
+            </div>
+            <div class="form-group">
+                <input th:value="${paket.price}" class="form-control" type="number" step="0.01" placeholder="price" name="price" />
             </div>
             <div class="form-group">
                 <div th:each="offer : ${offers}">

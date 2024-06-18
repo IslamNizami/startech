@@ -45,6 +45,14 @@ public class UserServiceImpl implements UserService {
         {
             return false;
         }
+        if (register.getPassword() == null || register.getPassword().length() < 8)
+        {
+            return false;
+        }
+        if (!register.getPassword().equals(register.getPasswordRepeat()))
+        {
+            return false;
+        }
 
         String hashPassword = bCryptPasswordEncoder.encode(register.getPassword());
         String token = bCryptPasswordEncoder.encode(register.getEmail());
