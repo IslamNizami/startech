@@ -34,11 +34,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/admin}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">StarTech Admin Panel <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">StarTech <sup>2</sup></div>
         </a>
 
         <!-- Divider -->
@@ -46,7 +46,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/admin">
+            <a class="nav-link" th:href="@{/admin}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -56,7 +56,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/admin/role">
+            <a class="nav-link" th:href="@{/admin/role}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Role</span></a>
         </li>
@@ -66,7 +66,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/admin/users">
+            <a class="nav-link" th:href="@{/admin/users}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Users</span></a>
         </li>
@@ -76,8 +76,8 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/admin/category">
-                <i class="fa-solid fa-list"></i>
+            <a class="nav-link" th:href="@{/admin/category}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Category</span></a>
         </li>
 
@@ -85,8 +85,8 @@
         <hr class="sidebar-divider">
 
         <li class="nav-item">
-            <a class="nav-link" href="/admin/blog">
-                <i class="fa-solid fa-list"></i>
+            <a class="nav-link" th:href="@{/admin/blog}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Blog</span></a>
         </li>
 
@@ -94,8 +94,8 @@
         <hr class="sidebar-divider">
 
         <li class="nav-item">
-            <a class="nav-link" href="/admin/service">
-                <i class="fa-solid fa-list"></i>
+            <a class="nav-link" th:href="@{/admin/service}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Service</span></a>
         </li>
 
@@ -103,8 +103,8 @@
         <hr class="sidebar-divider">
 
         <li class="nav-item">
-            <a class="nav-link" href="/admin/tag">
-                <i class="fa-solid fa-list"></i>
+            <a class="nav-link" th:href="@{/admin/tag}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Tag</span></a>
         </li>
 
@@ -112,8 +112,8 @@
 
         <hr class="sidebar-divider">
         <li class="nav-item">
-            <a class="nav-link" href="/admin/offer">
-                <i class="fa-solid fa-list"></i>
+            <a class="nav-link" th:href="@{/admin/offer}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Offer</span></a>
         </li>
 
@@ -121,8 +121,8 @@
         <hr class="sidebar-divider">
 
         <li class="nav-item">
-            <a class="nav-link" href="/admin/package">
-                <i class="fa-solid fa-list"></i>
+            <a class="nav-link" th:href="@{/admin/package}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Package</span></a>
         </li>
 
@@ -130,8 +130,8 @@
         <hr class="sidebar-divider">
 
         <li class="nav-item">
-            <a class="nav-link" href="/admin/feedback/create">
-                <i class="fa-solid fa-list"></i>
+            <a class="nav-link" th:href="@{/admin/feedback/create}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Feedback</span></a>
         </li>
 
@@ -152,6 +152,8 @@
     </ul>
     <!-- End of Sidebar -->
 
+
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -165,6 +167,8 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
+
+
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -191,6 +195,12 @@
                                 </div>
                             </form>
                         </div>
+
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </a>
                     </li>
                 </ul>
 
@@ -243,7 +253,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="/logout">Logout</a>
+                <a class="btn btn-primary" th:href="@{/logout}">Logout</a>
             </div>
         </div>
     </div>

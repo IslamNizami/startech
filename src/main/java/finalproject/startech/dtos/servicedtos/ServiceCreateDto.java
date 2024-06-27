@@ -13,6 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class ServiceCreateDto {
     private String name;
     private String description;
-    private String icon;
     private Long categoryId;
+    private String icon;
 }

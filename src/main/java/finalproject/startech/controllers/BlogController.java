@@ -101,18 +101,25 @@ public class BlogController {
     {
         BlogDetailDto blogDetailDto = blogService.blogDetail(id);
         model.addAttribute("blog",blogDetailDto);
+        List<CategoryDto> categories = categoryService.getAllCategories();
+        List<TagDto> tags = tagService.getAllTags();
+        model.addAttribute("categories", categories);
+        model.addAttribute("tags", tags);
+        List<BlogRecentDto> latestBlogs = blogService.getLatest5Blogs();
+        model.addAttribute("latestBlogs", latestBlogs);
         return "blog-detail";
     }
 
-    @GetMapping("/search/{name}")
-    public String search(@PathVariable String name, Model model)
-    {
+    @GetMapping("/search")
+    public String search(@RequestParam("name") String name, Model model) {
         List<BlogHomeDto> blogs = blogService.findByTitle(name);
-        if (blogs.isEmpty())
-        {
-            return "notFound";
-        }
         model.addAttribute("blogs", blogs);
-        return "blog-search";
+        if(blogs == null || blogs.size() == 0)
+        {
+            return "error";
+        }
+        return "search-found";
     }
+
+
 }

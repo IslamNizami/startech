@@ -9,7 +9,7 @@
 <body>
 <div layout:fragment="container" class="container-fluid">
     <div class="container">
-        <form method="post" action="/admin/feedback/create" enctype="multipart/form-data">
+        <form method="post" th:action="@{/admin/feedback/create}" enctype="multipart/form-data">
             <div class="col-lg-5 m-auto">
                 <div class="card">
                     <div class="card-body">
@@ -17,6 +17,9 @@
                             <select name="userId" class="form-control">
                                 <option th:each="user : ${users}" th:text="${user.firstName}" th:value="${user.id}"></option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <input  class="form-control-file" accept="image/*" type="file" placeholder="photoUrl" name="image" />
                         </div>
                         <div class="form-group">
                             <textarea id="desc" class="form-control" type="text" placeholder="Feedback" name="feedback"></textarea>

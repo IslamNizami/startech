@@ -23,9 +23,9 @@ public class UserEntity {
     private String password;
     private String confirmationToken;
     private Boolean emailConfirmed;
+    private String photoUrl;
     private String instagram;
     private String linkedin;
-    private String photoUrl;
 
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -38,4 +38,7 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedbacks;
+
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private PasswordResetToken passwordResetToken;
 }

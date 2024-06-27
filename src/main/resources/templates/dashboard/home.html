@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate = "~{dashboard/layout}">
+      layout:decorate="~{dashboard/layout}">
 
 <head>
     <title>Home</title>
+    <style>
+        .welcome-message {
+            font-size: 2em; /* Adjust the size as needed */
+            text-align: center;
+            margin-top: 20%; /* Adjust the top margin to centralize vertically */
+        }
+    </style>
 </head>
 
 <body>
 <div layout:fragment="container" class="container-fluid">
-    Salamlar
+    <div class="welcome-message">
+        Welcome to the Admin Panel of the StarTech.
+    </div>
 </div>
 </body>
 </html>

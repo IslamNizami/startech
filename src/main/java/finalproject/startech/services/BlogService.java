@@ -15,5 +15,6 @@ public interface BlogService{
     BlogUpdateDto findUpdateBlog(Long id);
     BlogDetailDto blogDetail(Long id);
     List<BlogHomeDto> findByTitle(String name);
-
+    List<BlogHomeDto> getLatestBlogs();
+    List<BlogRecentDto> getLatest5Blogs();
 }

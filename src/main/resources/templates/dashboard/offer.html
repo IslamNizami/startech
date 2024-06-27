@@ -4,12 +4,12 @@
       layout:decorate = "~{dashboard/layout}">
 
 <head>
-    <title>Tag</title>
+    <title>Offers</title>
 </head>
 
 <body>
 <div layout:fragment="container" class="container-fluid">
-    <a href = "/admin/offer/create" class = "btn btn-primary btn-sm">Create</a>
+    <a th:href = "@{/admin/offer/create}" class = "btn btn-primary btn-sm">Create</a>
     <table class="table table-striped">
         <thead>
         <tr>

@@ -119,4 +119,22 @@ public class BlogServiceImpl implements BlogService {
         List<BlogHomeDto> result = blogs.stream().map(blog->modelMapper.map(blog,BlogHomeDto.class)).collect(Collectors.toList());
         return result;
     }
+
+    @Override
+    public List<BlogHomeDto> getLatestBlogs() {
+        return blogRepository.findLatest3Blogs().subList(0, 3).stream()
+                .filter(blog->blog.getIsDeleted() == false)
+                .map(blog->modelMapper.map(blog,BlogHomeDto.class)).collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<BlogRecentDto> getLatest5Blogs() {
+        List<BlogRecentDto> blogs = blogRepository.findLatest5Blogs().stream()
+                .filter(blog -> blog.getIsDeleted() == false)
+                .map(blog -> modelMapper.map(blog,BlogRecentDto.class))
+                .collect(Collectors.toList());
+        return blogs;
+    }
+
 }

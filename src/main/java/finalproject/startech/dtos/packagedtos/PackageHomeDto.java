@@ -12,5 +12,5 @@ public class PackageHomeDto {
     private String title;
     private String subTitle;
     private float price;
-    private List<String> features;
+    private List<String> offers;
 }
