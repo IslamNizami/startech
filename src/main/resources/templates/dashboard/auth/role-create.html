@@ -10,7 +10,7 @@
 <body>
 <div layout:fragment="container" class="container-fluid">
     <div>
-        <form action="/admin/role/create" method="post">
+        <form th:action="@{/admin/role/create}" method="post">
             <input class ="form-control" type="text" placeholder="tag name" name = "name"/>
             <input type = "submit" value="Create" class="btn btn-success"/>
         </form>

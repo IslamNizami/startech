@@ -10,4 +10,5 @@ public class FeedbackCreateDto {
 
     private String feedback;
     private Long userId;
+    private String photoUrl;
 }

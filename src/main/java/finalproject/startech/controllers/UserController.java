@@ -12,12 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -26,6 +29,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
 
 
     @GetMapping("/admin/users")
@@ -48,8 +52,14 @@ public class UserController {
     }
 
     @PostMapping("/admin/users/addrole")
-    public String addRole(UserAddRoleDto addRoleDto)
+    public String addRole(UserAddRoleDto addRoleDto, @RequestParam("image")MultipartFile image) throws IOException
     {
+        UUID rand = UUID.randomUUID();
+        StringBuilder fileNames = new StringBuilder();
+        Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, rand + image.getOriginalFilename());
+        fileNames.append(image.getOriginalFilename());
+        Files.write(fileNameAndPath, image.getBytes());
+        addRoleDto.setPhotoUrl(rand + image.getOriginalFilename());
         userService.addRole(addRoleDto);
         return "redirect:/admin/users";
     }

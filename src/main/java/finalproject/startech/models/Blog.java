@@ -20,6 +20,8 @@ public class Blog {
     @Column(name = "description", length = Integer.MAX_VALUE)
     private String description;
     private String photoUrl;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date")
     private Date createdDate;
     private Date updatedDate;
     private Boolean isDeleted = false;

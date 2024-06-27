@@ -67,8 +67,8 @@ public class ServiceServiceImpl implements ServiceService {
         Category findCategory = categoryRepository.findById(serviceUpdateDto.getCategoryId()).orElseThrow();
         findService.setName(serviceUpdateDto.getName());
         findService.setDescription(serviceUpdateDto.getDescription());
-        findService.setIcon(serviceUpdateDto.getIcon());
         findService.setCategory(findCategory);
+        findService.setIcon(serviceUpdateDto.getIcon());
         serviceRepository.save(findService);
     }
 

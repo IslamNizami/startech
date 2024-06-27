@@ -1,24 +1,26 @@
 package finalproject.startech.services.Impls;
 
 import finalproject.startech.dtos.authdtos.RegisterDto;
-import finalproject.startech.dtos.userdtos.UserAddRoleDto;
-import finalproject.startech.dtos.userdtos.UserDashboardListDto;
-import finalproject.startech.dtos.userdtos.UserDto;
-import finalproject.startech.dtos.userdtos.UserFeedbackDto;
+import finalproject.startech.dtos.userdtos.*;
+import finalproject.startech.models.PasswordResetToken;
 import finalproject.startech.models.Role;
 import finalproject.startech.models.UserEntity;
+import finalproject.startech.repositories.PasswordResetTokenRepository;
 import finalproject.startech.repositories.RoleRepository;
 import finalproject.startech.repositories.UserRepository;
 import finalproject.startech.services.EmailService;
 import finalproject.startech.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.cglib.core.Local;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +39,11 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
+    @Autowired
+    private PasswordResetTokenRepository passwordResetTokenRepository;
 
     @Override
     public boolean register(RegisterDto register) {
@@ -95,6 +102,9 @@ public class UserServiceImpl implements UserService {
         UserEntity findUser = userRepository.findByEmail(userAddRole.getEmail());
         List<Role> roles = roleRepository.findAll().stream().filter(x->x.getId() == userAddRole.getRoleId()).collect(Collectors.toList());
         findUser.setRoles(roles);
+        findUser.setPhotoUrl(userAddRole.getPhotoUrl());
+        findUser.setInstagram(userAddRole.getInstagram());
+        findUser.setLinkedin(userAddRole.getLinkedin());
         userRepository.save(findUser);
     }
 
@@ -110,5 +120,56 @@ public class UserServiceImpl implements UserService {
         List<UserEntity> findUsers = userRepository.findAll();
         List<UserFeedbackDto> users = findUsers.stream().map(user ->modelMapper.map(user, UserFeedbackDto.class)).collect(Collectors.toList());
         return users;
+    }
+
+    @Override
+    public String sendPasswordResetEmail(UserEntity user) {
+        try {
+            String resetLink = generateResetToken(user);
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("islamnizami0046@gmail.com");
+            message.setTo(user.getEmail());
+            message.setSubject("Password Reset Request");
+            message.setText("Please click the link to Reset your password: " + resetLink);
+            javaMailSender.send(message);
+            return "success";
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    @Override
+    public String generateResetToken(UserEntity user) {
+        UUID uuid = UUID.randomUUID();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime expiryDateTime = currentDateTime.plusMinutes(10);
+        PasswordResetToken resetToken = new PasswordResetToken();
+        resetToken.setToken(uuid.toString());
+        resetToken.setExpiryDate(expiryDateTime);
+        resetToken.setUser(user);
+        PasswordResetToken token = passwordResetTokenRepository.save(resetToken);
+        if (token != null) {
+            String resetUrl = "http://localhost:6060/resetPassword/" + resetToken.getToken();
+            return resetUrl;
+        }
+        return "";
+    }
+
+    @Override
+    public boolean hasExpired(LocalDateTime expiryDate) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        return expiryDate.isAfter(currentDateTime);
+    }
+
+    @Override
+    public List<MemberDto> getAllMembers() {
+        List<UserEntity> members = userRepository.findByEmailConfirmedTrue();
+        List<MemberDto> result = members.stream()
+                .map(member -> modelMapper.map(member, MemberDto.class))
+                .collect(Collectors.toList());
+        return result;
     }
 }

@@ -10,4 +10,7 @@ public class UserAddRoleDto {
 
     private String email;
     private Long roleId;
+    private String photoUrl;
+    private String instagram;
+    private String linkedin;
 }

@@ -1,12 +1,16 @@
 package finalproject.startech.Config;
 
 
+import finalproject.startech.models.UserEntity;
+import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
+
 
 @Configuration
 public class MailConfig {
@@ -29,4 +33,5 @@ public class MailConfig {
 
         return javaMailSender;
     }
+
 }

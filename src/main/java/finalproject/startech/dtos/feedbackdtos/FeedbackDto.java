@@ -11,5 +11,8 @@ public class FeedbackDto {
 
     private Long id;
     private String feedback;
-
+    private String photoUrl;
+    private Long userId;
+    private String firstName;
+    private String lastName;
 }

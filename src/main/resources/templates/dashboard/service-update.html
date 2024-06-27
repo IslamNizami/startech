@@ -3,13 +3,13 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{/dashboard/layout}">
 <head>
-    <title>Article Update </title>
+    <title>Service Update </title>
 </head>
 
 <body>
 <div layout:fragment="container" class="container-fluid">
     <div>
-        <form action="/admin/service/update" method="post" enctype="multipart/form-data">
+        <form th:action="@{/admin/service/update}" method="post" enctype="multipart/form-data">
             <div  class="form-group">
                 <input th:value = "${service.name}" class="form-control" type="text" placeholder="name" name="name" />
             </div>

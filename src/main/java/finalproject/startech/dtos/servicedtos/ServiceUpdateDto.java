@@ -11,6 +11,6 @@ public class ServiceUpdateDto {
     private Long id;
     private String name;
     private String description;
-    private String icon;
     private Long categoryId;
+    private String icon;
 }

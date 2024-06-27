@@ -2,8 +2,8 @@ package finalproject.startech.controllers;
 
 
 import finalproject.startech.dtos.authdtos.RegisterDto;
+import finalproject.startech.repositories.UserRepository;
 import finalproject.startech.services.UserService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +14,8 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/login")
     public String login()
@@ -44,5 +46,6 @@ public class AuthController {
         userService.confirmEmail(email,token);
         return "redirect:/login";
     }
+
 
 }

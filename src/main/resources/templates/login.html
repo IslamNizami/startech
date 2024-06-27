@@ -16,6 +16,11 @@
 <body>
 <div layout:fragment="Body">
   <div class="main">
+    <div class="container">
+      <div th:if="${param.error}" class="error-container">
+        <div class="alert alert-info text-white">User not Present with this Email.Please Register.</div>
+      </div>
+    </div>
 
     <!-- Sing in  Form -->
     <section class="sign-in">
@@ -46,10 +51,7 @@
               </div>
             </form>
             <div class="social-login">
-              <span class="social-label">Or login with</span>
-              <ul class="socials">
-                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-              </ul>
+              <a th:href="@{/forgotPassword}" class="signup-image-link">Forgot your password?</a>
             </div>
           </div>
         </div>

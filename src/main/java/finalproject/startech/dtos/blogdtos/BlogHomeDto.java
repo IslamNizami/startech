@@ -17,4 +17,6 @@ public class BlogHomeDto {
     private Date createdDate;
     private CategoryDto category;
     private String seoUrl;
+    private String photoUrl;
+
 }

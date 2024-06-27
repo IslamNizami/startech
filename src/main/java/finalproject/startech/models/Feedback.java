@@ -20,5 +20,5 @@ public class Feedback {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
+    private String photoUrl;
 }
